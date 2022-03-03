@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import axios from "axios";
+import Clients from "./components/Clients";
 
 const App = () => {
 
   const [inputValue, setInputValue] = useState("");
-  const [clients, setClients] = useState("");
+  const [clients, setClients] = useState([]);
 
   const buttonClick = async () => {
     await axios.get("https://demoapi.com/api/vet/clients?search=AMIT-A-FELHASZN%C3%81L%C3%93-%C3%8DRT")
@@ -21,6 +22,7 @@ const App = () => {
         value ={inputValue}
         onChange={(e) => setInputValue(e.target.value)} /> 
         <button disabled = {inputValue.length < 3}onClick={() => buttonClick}>Search Clients</button>
+        {clients.map(client => <Clients client={client}/>)}
     </div>
   )
 }
